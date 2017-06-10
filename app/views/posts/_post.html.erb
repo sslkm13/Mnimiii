@@ -1,0 +1,77 @@
+<div class="container">
+<% @posts.each_slice(2) do |posts| %>
+<div class="posts-wrapper row">
+  <% posts.each do |post| %>
+<div class="col-lg-4 col-md-offset-1">
+    <div class="post">
+      <div class="post-head">
+        <div class="thumb-img"></div>
+        <div class="user-name">
+          <%= link_to post.user.user_name, profile_path(post.user.user_name), class:"nolink"%>
+        </div>
+        <div class="time-ago">
+          <%= time_ago_in_words post.created_at %> ago
+        </div>
+      </div>
+      <div class="image center-block">
+        <%= link_to (image_tag post.image.url(:medium), class:'img-responsive'), post_path(post) %>
+      </div>
+      <div class="post-bottom">
+        <%= render 'posts/likes', post: post %>
+      <div class="caption">
+        <div class="caption-content">
+        <div class="user-name">
+        <%= link_to post.user.user_name, profile_path(post.user.user_name), class:"nolink"%>
+        </div>
+        <%= render_with_hashtags(post.caption) %>
+        </div>
+              <% if post.mp3.exists? %>
+        <div id="waveform">
+        <div class="text-center">
+          <div class="controls">
+<button class="btn" onclick="wavesurfer.on('ready', wavesurfer.play.bind(wavesurfer)); wavesurfer.load('<%= post.mp3.url %>');"> Play</button>
+</div>
+  </div>
+      </div>
+      <% end %>
+        <div class="comments" id="comments_<%= post.id %>">
+          <% if post.comments.any? %>
+            <div class="paginator" id="#comments-paginator-<%= post.id %>">
+              <% unless post.comments.count <= 4 %>
+                <%= link_to "view all #{post.comments.count} comments", post_comments_path(post), remote: true, class: 'more-comments', data: {post_id: "#{post.id}", type: "html"} %>
+              <% end %>
+            </div>
+            <%= render post.comments.last(4), post: post %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <div class="comment-like-form">
+      <div class="row col-sm-4 like-button">
+    <%= liked_post post %>
+  </div>
+  <div class="row comment-form col-sm-10">
+    <br>
+    <%= form_for([post, post.comments.build], remote:true) do |f| %>
+      <%= f.text_field :content, placeholder: 'Add a comment...', class: "comment_content", id: "comment_content_#{post.id}", :style => "background: none;
+  border: none;" %>
+    <% end %>
+  </div>
+</div>
+  
+
+    </div><%# post %>
+    </div><%# offset %>
+  <% end %> <%# each post %>
+</div><%# post-wrapper row %>
+<% end %> <%# slice %>
+</div><%# container %>
+
+<script>
+  var wavesurfer = WaveSurfer.create({
+    container: '#waveform',
+    waveColor: 'orange',
+    progressColor: 'black',
+    barWidth: '1'
+});
+</script>

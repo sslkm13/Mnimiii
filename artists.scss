@@ -1,0 +1,45 @@
+#list{
+  padding-bottom: 3rem;
+  ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+    li {
+      width: 23%;
+      float: left;
+      margin: 0 1% 2rem 1%;
+      -webkit-box-shadow: 0 1px 1px 0 rgba(0,0,0,0.25);
+      box-shadow: 0 1px 1px 0 rgba(0,0,0,0.25);
+      border-radius: .35rem;
+      img {
+        width: 100%;
+        max-width: 100%;
+        border-radius: .35rem .35rem 0 0;
+      }
+      .artist_overview{
+        padding: 1rem 7.5%;
+        h2 {
+          margin: 0;
+          font-size: 1rem;
+          font-weight: 700;
+          color: $dark;
+        }
+        .number{
+          color: lighten($dark, 25%);
+          font-size: .9rem;
+          margin: .5rem 0 .25rem 0;
+        }
+      }
+      &:hover {
+        img {
+          opacity: 0.7;
+        }
+        .artist_overview {
+          h2 {
+            color: $highlight;
+          }
+        }
+      }
+    }
+  }
+}

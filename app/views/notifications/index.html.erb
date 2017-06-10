@@ -1,0 +1,17 @@
+<%= render '/posts/nav' %>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <ul class="notification-index-list list-group">
+        <h1 class="text-center">Your Notifications</h1>
+        <%= render @notifications, selector: "long" %>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<% if current_user.notifications.length > 10 %>
+  <div id="paginator", class="text-center">
+    <%= link_to_next_page @notifications, 'LOAD MORE', remote: true, id: 'load_more' %>
+  </div>
+<% end %>

@@ -1,0 +1,55 @@
+<%= render 'posts/nav' %>
+
+<br>
+<br>
+<br>
+
+<div class="posts-wrap">
+  <div class="row profile-header">
+    <div class="col-md-6">
+      <div class="img-circle">
+        <%= profile_avatar_select(@user) %>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="user-name-and-follow">
+        <h3 class="profile-user-name"><%= @user.user_name %></h3>
+        <span> 
+          <% if @user == current_user %>
+            <%= button_to 'Edit Profile', edit_profile_path(@user.user_name),class: 'btn edit-button' %>
+          <% elsif current_user.friend_with? @user %>Already Friends!
+            <%= button_to "Delete!", remove_friend_friendship_path(id: @user.id), method: :delete, class: "btn btn-primary" %>
+          <% elsif current_user.invited? @user %>Friend request sent!
+            <%= button_to "Unsend!", remove_friend_friendship_path(id: @user.id), method: :delete, class: "btn btn-small btn-primary" %>
+          <% elsif current_user.invited_by? @user %>
+            <%= button_to "Accept!", approve_friend_friendship_path(id: @user.id), method: :post, class: "btn btn-small btn-primary" %>
+            <%= button_to "Reject!", remove_friend_friendship_path(id: @user.id), method: :delete, class: "btn btn-small btn-primary" %>
+          <% else %>
+            <%= button_to "Request Friend", request_friend_friendship_path(id: @user.id),method: :post,class: "btn btn-primary" %>
+          <% end %>
+        </span>
+      </div>
+      <p class="profile-bio">
+        <%= @user.bio %>
+      </p>
+      <div class="user-statistics text-center">
+        <ul class="list-inline list-unstyled">
+          <li>
+            <strong><%= @user.posts.count %></strong>
+            <%= "post".pluralize(@user.posts.count)%>
+          </li>
+          <li>
+            <strong><%= @user.friends.count %></strong>
+            <%= "follower".pluralize(@user.friends.count)%>
+          </li>
+          <li>
+            <strong></strong>
+            <%= "following" %>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= render 'posts/post', post: @post %>

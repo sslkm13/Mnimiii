@@ -1,0 +1,30 @@
+<div id="background">
+  <header class="cf">
+    <div class="wrapper_wide">
+      <a href="/" id="logo" style="font-size: 25px;">Mnimi</a>
+      <nav>
+        <ul>
+          <% unless user_signed_in? %>
+            <li><a href="#">Explore</a></li>
+            <li><%= link_to "Sign In",new_user_session_path%></li>
+            <li><%= link_to "Sign Up",new_user_registration_path%></li>
+          <% else %>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Explore</a></li>
+            <li><%= link_to "Sign Out", destroy_user_session_path, method: :delete%></li>
+          <% end %>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <div class="wrapper_skinny">
+    <h1>Share your memories while creating new ones.</h1>
+    <% unless user_signed_in? %>
+      <%= link_to "Share a Memory",new_user_session_path, class:"button button_highlight "%>
+      <a href="" class="button button_white" style="text-decoration:none;">Explore</a>
+    <% else %>
+      <%= link_to "Share a Memory",new_post_path, class:"button button_highlight "%>
+      <a href="" class="button button_white" style="text-decoration:none;">Explore</a>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Mnimi</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all' %>
+    <%= javascript_include_tag 'application' %>
+  </head>
+
+  <body>
+
+    <% if alert %>
+      <div id="notice_wrapper">
+        <p class="alertt"><%= alert %></p>
+      </div>
+    <% elsif notice %>
+       <div id="notice_wrapper">
+         <p class="notice"><%= notice %></p>
+       </div>
+    <% end %>
+    <%= yield %>
+
+    <script>
+      $(document).ready(function(){
+      setTimeout(function() {
+        $('#notice_wrapper').fadeOut("slow", function() {
+          $this.remove();
+        });
+      }, 6000 );
+    });
+    </script>
+  </body>
+</html>

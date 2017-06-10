@@ -1,0 +1,22 @@
+<%= render 'nav' %>
+<br>
+<br>
+<br>
+
+<div id="feed"><%# here %>
+<%= render 'post' %> <%# here render 'post' %>
+</div><%# here %>
+
+
+<div class="hide-wp">
+<div id="infinite-scrolling">
+<%= will_paginate @posts %><%# here %>
+</div>
+<% if @posts.current_page == @posts.total_pages%>
+<p>YOU HAVE HIT ROCK BOTTOM!</p>
+<% end %>
+</div>
+
+<div class="text-center" id="paginator">
+  <%= link_to_next_page @posts, 'SHOW MORE', remote: true, id: 'load_more' %>
+</div>

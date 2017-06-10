@@ -1,0 +1,64 @@
+<div id="banner" class="sign_up_banner">
+  <h1>Upload &amp; Share your memories.It's free</h1>
+</div>
+<div class="registration-bg">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4 col-md-offset-4">
+        <div class="log-in panel">
+          <div class="panel-heading">
+            <h2><center>Create Your Account</center></h2>
+          </div>
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+      <%= devise_error_messages! %>
+
+      <div class="panel-body">
+
+      <div class="field">
+        <%= f.label :email %><br />
+        <%= f.email_field :email, autofocus: true %>
+      </div>
+
+      <div class="field">
+        <%= f.label :user_name %><br />
+        <%= f.text_field :user_name %>
+      </div>
+
+      <div class="field">
+        <%= f.label :full_name %><br />
+        <%= f.text_field :full_name %>
+      </div>
+
+      <div class="field">
+        <%= f.label :nick_name %><br />
+        <%= f.text_field :nick_name %>
+      </div>
+
+      <div class="field">
+        <%= f.label :password %>
+        <% if @validatable %>
+        <em>(<%= @minimum_password_length %> characters minimum)</em>
+        <% end %><br />
+        <%= f.password_field :password, autocomplete: "off" %>
+      </div>
+
+      <div class="field">
+        <%= f.label :password_confirmation %><br />
+        <%= f.password_field :password_confirmation, autocomplete: "off" %>
+      </div>
+
+      <div class="actions">
+        <center><%= f.submit "Sign up", class: "button button_highlight button_block" %></center>
+      </div>
+    </div>
+    <% end %>
+  </div>
+  <div align="left">
+    Already have an account? <%= render "devise/shared/links" %>
+    </div>
+  </div>
+  </div>
+
+
+</div>
+</div>
